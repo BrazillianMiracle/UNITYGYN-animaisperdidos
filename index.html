@@ -56,8 +56,8 @@
                 <div class="stats-grid">
                     <div class="stat-item"><i class="fas fa-home stat-icon"></i><p class="stat-number" data-target="158">158+</p><p class="stat-label">Pets Reencontrados</p></div>
                     <div class="stat-item"><i class="fas fa-users stat-icon"></i><p class="stat-number" data-target="2300">2300+</p><p class="stat-label">Voluntários na Rede</p></div>
-                    <div class="stat-item"><i class="fas fa-map-marked-alt stat-icon"></i><p class="stat-number" data-target="257">257</p><p class="stat-label">Bairros Atendidos (GO)</p></div>
-                    <div class="stat-item"><i class="fas fa-paw stat-icon"></i><p class="stat-number" data-target="94">94%</p><p class="stat-label">Taxa Média de Sucesso</p></div>
+                    <div class="stat-item"><i class="fas fa-map-marked-alt stat-icon"></i><p class="stat-number" data-target="52">52</p><p class="stat-label">Bairros Atendidos (GO)</p></div>
+                    <div class="stat-item"><i class="fas fa-paw stat-icon"></i><p class="stat-number" data-target="90">90%</p><p class="stat-label">Taxa Média de Sucesso</p></div>
                 </div>
             </div>
         </section>
@@ -68,7 +68,7 @@
                 <div class="announcement-grid" id="announcement-grid-perdidos">
                     <div class="loading-placeholder">Carregando anúncios de pets perdidos...</div>
                 </div>
-                <button class="btn-load-more" id="btn-load-perdidos" onclick="loadMoreAnnouncements('perdidos')">Carregar Mais 3 Alertas <i class="fas fa-chevron-down"></i></button>
+                <button class="btn-load-more">Carregar Mais Alertas <i class="fas fa-chevron-down"></i></button>
             </div>
         </section>
 
@@ -78,7 +78,7 @@
                 <div class="announcement-grid" id="announcement-grid-encontrados">
                     <div class="loading-placeholder">Carregando anúncios de pets encontrados...</div>
                 </div>
-                <button class="btn-load-more" id="btn-load-encontrados" onclick="loadMoreAnnouncements('encontrados')">Carregar Mais 3 Encontrados <i class="fas fa-chevron-down"></i></button>
+                <button class="btn-load-more">Carregar Mais Encontrados <i class="fas fa-chevron-down"></i></button>
             </div>
         </section>
 
@@ -87,7 +87,7 @@
                 <h2 class="section-title title-adoption"><i class="fas fa-home"></i> Adote um Amigo! Pets Prontos para o Amor</h2>
                 <div class="adoption-grid" id="adoption-grid">
                     </div>
-                <button class="btn-load-more" id="btn-load-adocao" onclick="loadMoreAnnouncements('adocao')">Ver Mais Pets para Adoção <i class="fas fa-chevron-right"></i></button>
+                <button class="btn-load-more">Ver Todos os Pets para Adoção <i class="fas fa-chevron-right"></i></button>
             </div>
         </section>
 
@@ -135,9 +135,9 @@
 
     </main>
 
-    <div id="pet-details-modal" class="modal" aria-modal="true" role="dialog">
+    <div id="pet-details-modal" class="modal">
         <div class="modal-content">
-            <span class="close-button" onclick="closePetDetails()">&times;</span>
+            <span class="close-button">&times;</span>
             <div id="modal-body-content">
                 </div>
         </div>
@@ -149,6 +149,6 @@
         </div>
     </footer>
 
-    <script src="./script.js" defer></script>
+    <script src="./script.js"></script>
 </body>
 </html>

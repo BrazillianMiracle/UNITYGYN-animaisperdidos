@@ -1,4 +1,4 @@
-/* style.css - Versão Profissional e Coerente (Aprimorada) */
+/* style.css - Versão Profissional e Coerente */
 
 /* --- VARIÁVEIS DE COR E TIPOGRAFIA --- */
 :root {
@@ -42,7 +42,7 @@ a:hover {
     color: var(--color-secondary);
 }
 
-/* --- TIPOGRAFIA E TÍTULOS --- */
+/* --- TIPOGRAFIA --- */
 h1, h2, h3 {
     font-family: var(--font-heading);
     color: var(--color-primary);
@@ -96,14 +96,9 @@ h1, h2, h3 {
     margin: 30px auto;
     background-color: #e0e0e0;
     color: var(--color-text);
-    padding: 12px 30px; /* Levemente maior */
+    padding: 10px 30px;
     width: 90%;
-    max-width: 350px;
-    font-size: 1.1em;
-    font-weight: 700;
-}
-.btn-load-more:hover {
-    background-color: #ccc;
+    max-width: 300px;
 }
 
 /* --- BANNER DESENVOLVEDOR --- */
@@ -124,21 +119,20 @@ h1, h2, h3 {
 }
 
 .banner-hero {
-    /* Usando uma imagem mais genérica ou gradiente para evitar quebras */
-    background: linear-gradient(rgba(26, 35, 126, 0.75), rgba(26, 35, 126, 0.75)), url('https://picsum.photos/1200/500?random=1');
+    background: linear-gradient(rgba(26, 35, 126, 0.75), rgba(26, 35, 126, 0.75)), url('https://picsum.photos/1200/500?image=1074'); /* Imagem fictícia de fundo */
     background-size: cover;
     background-position: center;
     color: white;
-    padding: 80px 0; /* Mais padding para destaque */
+    padding: 60px 0;
     text-align: center;
 }
 
 .banner-content h1 {
-    font-size: 3.5em; /* Ligeiramente maior */
+    font-size: 3em;
     font-weight: 800;
     color: white;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
-    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
 }
 
 .highlight-text {
@@ -146,8 +140,8 @@ h1, h2, h3 {
 }
 
 .banner-content p {
-    font-size: 1.3em;
-    margin-bottom: 40px;
+    font-size: 1.2em;
+    margin-bottom: 30px;
     font-family: var(--font-body);
 }
 
@@ -155,16 +149,13 @@ h1, h2, h3 {
 .main-nav {
     background-color: white;
     border-bottom: 1px solid #ddd;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    position: sticky; /* Menu fixo ao rolar */
-    top: 0;
-    z-index: 900;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .nav-list {
     list-style: none;
     display: flex;
-    justify-content: space-around; /* Mais equilibrado */
+    justify-content: space-between;
     padding: 15px 0;
 }
 
@@ -173,7 +164,6 @@ h1, h2, h3 {
     padding: 5px 10px;
     font-weight: 600;
     transition: all 0.3s;
-    white-space: nowrap; /* Evita quebras no menu */
 }
 
 .nav-link:hover {
@@ -195,10 +185,38 @@ h1, h2, h3 {
     margin: 20px auto 0;
 }
 
+.search-bar-advanced input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
 /* Estatísticas */
 .stats-section {
     padding: 40px 0;
-    background-color: #e8eaf6; 
+    background-color: #e8eaf6; /* Um azul muito claro */
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    text-align: center;
+}
+
+.stat-item {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.stat-icon {
+    font-size: 2.5em;
+    color: var(--color-primary);
+    margin-bottom: 10px;
 }
 
 .stat-number {
@@ -207,12 +225,26 @@ h1, h2, h3 {
     color: var(--color-alert);
 }
 
+.stat-label {
+    font-weight: 500;
+    margin-top: 5px;
+}
+
 /* --- GRID DE ANÚNCIOS GERAL --- */
 .section-announcements, .section-adoption, .section-voluntario, .section-testimonials {
     padding: 60px 0;
 }
+.bg-light-gray { background-color: #f0f4f7; }
 
-.announcement-card, .adoption-card {
+.announcement-grid, .adoption-grid, .volunteer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+/* Card Padrão de Anúncio (Perdido/Encontrado) */
+.announcement-card {
     background-color: white;
     border-radius: 10px;
     overflow: hidden;
@@ -221,59 +253,242 @@ h1, h2, h3 {
     cursor: pointer;
 }
 
-.announcement-card:hover, .adoption-card:hover {
+.announcement-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
 }
 
-/* Estilos de badges específicos */
+.pet-photo {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card-content h3 {
+    font-size: 1.4em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--color-text);
+}
+
+.card-info p {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.card-badges {
+    margin-top: 10px;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 0.75em;
+    font-weight: 700;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.badge-perdido { background-color: var(--color-alert); color: white; }
 .badge-encontrado { background-color: var(--color-found); color: white; }
+.badge-recompensa { background-color: var(--color-secondary); color: var(--color-primary); }
 
 /* --- SEÇÃO APROVEITADA (ADOÇÃO/VOLUNTARIADO) --- */
+/* Estilo para cards de Adoção e Voluntariado */
+.adoption-card, .volunteer-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
 .adoption-card img {
-    height: 220px; /* Um pouco mais alto */
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* --- HISTÓRIAS DE SUCESSO --- */
+.testimonial-carousel {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto; /* Permite rolar se houver muitos */
+    padding-bottom: 20px;
+    justify-content: center;
+}
+
+.testimonial-card {
+    min-width: 300px;
+    max-width: 350px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex: 0 0 auto;
+}
+.test-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid var(--color-secondary);
+}
+.testimonial-text {
+    font-style: italic;
+    margin-bottom: 10px;
+}
+.pet-status {
+    font-weight: 700;
+    color: var(--color-primary);
 }
 
 /* --- SEÇÃO DE DOAÇÃO --- */
 .section-donation {
-    background-color: var(--color-primary); 
+    background-color: var(--color-primary); /* Azul escuro principal */
     color: white;
     padding: 60px 0;
 }
+.donation-content-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 50px;
+}
+.donation-info {
+    flex: 1;
+}
+.emphasis-text {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 15px;
+    color: var(--color-secondary);
+}
+.donation-box {
+    background-color: white;
+    color: var(--color-text);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    min-width: 350px;
+}
+.donation-box h3 {
+    margin-top: 0;
+    color: var(--color-primary);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+.donation-option {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+.donation-option i {
+    font-size: 2em;
+    color: var(--color-found);
+}
+.pix-key {
+    font-weight: 700;
+    color: var(--color-alert);
+}
+
 
 /* --- MODAL --- */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 700px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
 .modal-info-group {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: 10px;
     margin-bottom: 15px;
-    padding: 15px;
+    padding: 10px;
     border-bottom: 1px dotted #ccc;
-    background-color: #f9f9f9;
-    border-radius: 5px;
 }
-.modal-info-group div strong {
-    color: var(--color-primary);
+.btn-contact-modal {
+    display: block;
+    background-color: var(--color-alert);
+    color: white;
+    padding: 12px;
+    margin-top: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 700;
 }
 
-/* --- RESPONSIVIDADE --- */
-@media (max-width: 1024px) {
-    .nav-list {
-        justify-content: space-around;
-        padding: 15px 10px;
-    }
+/* --- RODAPÉ --- */
+.main-footer {
+    background-color: var(--color-primary);
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 0.9em;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
 }
-@media (max-width: 768px) {
+.footer-bottom {
+    padding: 15px 0;
+    background-color: #111855; /* Cor um pouco mais escura para contraste */
+}
+.main-footer strong {
+    color: var(--color-secondary);
+}
+
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 992px) {
     .nav-list {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 10px;
+        display: block;
+        text-align: center;
+        padding: 10px;
     }
     .nav-list li {
-        text-align: center;
-    }
-    .nav-link {
-        padding: 8px 5px;
+        display: inline-block;
+        margin: 5px 10px;
     }
     .donation-content-flex {
         flex-direction: column;
@@ -284,17 +499,29 @@ h1, h2, h3 {
         width: 100%;
     }
 }
-@media (max-width: 480px) {
-    .nav-list {
+@media (max-width: 768px) {
+    .banner-content h1 {
+        font-size: 2.2em;
+    }
+    .stats-grid {
         grid-template-columns: 1fr 1fr;
     }
-    .banner-content h1 {
-        font-size: 2em;
+    .search-bar-advanced {
+        flex-direction: column;
     }
+    .search-bar-advanced button {
+        width: 100%;
+    }
+}
+@media (max-width: 480px) {
     .stats-grid {
         grid-template-columns: 1fr;
     }
-    .modal-info-group {
+    .announcement-grid, .adoption-grid, .volunteer-grid {
         grid-template-columns: 1fr;
+    }
+    .nav-list li {
+        display: block;
+        margin: 8px 0;
     }
 }

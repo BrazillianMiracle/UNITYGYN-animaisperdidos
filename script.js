@@ -1,60 +1,63 @@
-// --- DADOS SIMULADOS DE GOIÂNIA (FICTÍCIOS E EXPANDIDOS) ---
+// --- DADOS SIMULADOS DE GOIÂNIA (FICTÍCIOS) ---
 
-// Funções utilitárias para gerar dados de exemplo (reutilizáveis e coerentes)
-const BAIRROS_GO = ["Setor Bueno", "Jardim América", "Parque Flamboyant", "Setor Oeste", "Vila Redenção", "Nova Suíça", "Setor Marista", "Setor Universitário", "Campinas", "Setor Aeroporto", "Jardim Goiás", "Jardim Guanabara", "Alphaville Flamboyant"];
-const PETS_NAMES = ["Bob", "Luna", "Thor", "Mel", "Zeus", "Pipoca", "Belinha", "Max", "Princesa", "Bidu", "Amora", "Rex", "Jolie", "Pingo", "Zeca", "Kika", "Floquinho", "Pandora", "Bart", "Dora", "Snoopy", "Toby"];
-const RAÇAS_COMUNS = ["Labrador Retriever", "Vira-Lata (SRD)", "Pastor Alemão", "Poodle Toy", "Husky Siberiano", "Shih Tzu", "Boxer", "Basset Hound", "Chow Chow", "Dachshund (Salsicha)", "Golden Retriever", "Rottweiler", "Yorkshire Terrier", "Pug", "SRD (Gato)"];
+// 1. ANIMAIS PERDIDOS
+const ANUNCIOS_PERDIDOS = [
+    {
+        id: 1, tipo: "perdido", nome: "Bob", raca: "Labrador Retriever", sexo: "Macho", idade: "5 anos", cor: "Dourado",
+        bairro: "Setor Bueno", endereco: "Próximo à Praça da T-25.",
+        ultimaVisto: "Ontem, 19:30h", recompensa: "R$ 500,00",
+        contato: "(62) 98111-XXXX", fotoUrl: "https://placedog.net/600/400?random&id=1",
+        detalhes: "Muito dócil, atende por 'Bobão'. Tem coleira vermelha com plaquinha. Urgente!"
+    },
+    {
+        id: 2, tipo: "perdido", nome: "Luna", raca: "Vira-Lata (SRD)", sexo: "Fêmea", idade: "2 anos", cor: "Caramelo",
+        bairro: "Jardim América", endereco: "Rua C-156, perto do Supermercado.",
+        ultimaVisto: "Hoje, 07:00h", recompensa: "Não",
+        contato: "(62) 98222-XXXX", fotoUrl: "https://placedog.net/600/400?random&id=2",
+        detalhes: "Castrada, muito medrosa. Se abaixar e chamar pelo nome, ela se aproxima."
+    },
+    {
+        id: 3, tipo: "perdido", nome: "Thor", raca: "Pastor Alemão", sexo: "Macho", idade: "8 meses", cor: "Preto e Marrom",
+        bairro: "Parque Flamboyant", endereco: "Avenida Jamel Cecílio, fugiu durante passeio.",
+        ultimaVisto: "Há 2 dias, 15:00h", recompensa: "R$ 1.000,00",
+        contato: "(62) 98333-XXXX", fotoUrl: "https://placedog.net/600/400?random&id=3",
+        detalhes: "Filhote brincalhão. Pode estar assustado. Não tem microchip. "
+    }
+];
 
-function generateFakePet(index, tipo) {
-    const nome = PETS_NAMES[index % PETS_NAMES.length];
-    const raca = RAÇAS_COMUNS[Math.floor(Math.random() * RAÇAS_COMUNS.length)];
-    const sexo = (index % 2 === 0) ? "Macho" : "Fêmea";
-    const bairro = BAIRROS_GO[index % BAIRROS_GO.length];
-    const cor = ["Dourado", "Caramelo", "Preto", "Tricolor", "Branco", "Cinza", "Tigrado"][index % 7];
-    const recompensa = (index % 3 === 0) ? `R$ ${((index + 1) * 100).toFixed(2).replace('.', ',')}` : 'Não';
-    const ultimaVisto = (tipo === 'perdido') ? `Há ${Math.floor(Math.random() * 5) + 1} dias` : `Hoje, ${Math.floor(Math.random() * 12) + 8}:00h`;
-    const detalhes = (tipo === 'perdido') ? "Muito dócil, precisa de medicação. Ligue urgente se vir." : "Estava desorientado(a), levado para o veterinário. Procurando pelo dono.";
+// 2. PETS ENCONTRADOS
+const PETS_ENCONTRADOS = [
+    {
+        id: 101, tipo: "encontrado", nome: "Sem Nome", raca: "Cocker Spaniel", sexo: "Fêmea", idade: "Aprox. 3 anos", cor: "Preto",
+        bairro: "Setor Oeste", endereco: "Encontrada na Praça Tamandaré, muito assustada.",
+        ultimaVisto: "Hoje, 10:00h", recompensa: "Não",
+        contato: "(62) 99111-XXXX", fotoUrl: "https://placedog.net/600/400?random&id=101",
+        detalhes: "Tem coleira azul e está com sinais de desnutrição leve. Necessário comprovante de posse para resgate."
+    },
+    {
+        id: 102, tipo: "encontrado", nome: "Sem Nome", raca: "Gato SRD", sexo: "Macho", idade: "Aprox. 1 ano", cor: "Branco e Laranja",
+        bairro: "Vila Nova", endereco: "Achei perto do Hospital Geral de Goiânia (HGG).",
+        ultimaVisto: "Ontem, 20:00h", recompensa: "Não",
+        contato: "(62) 99222-XXXX", fotoUrl: "https://placekitten.com/600/400?image=1",
+        detalhes: "Muito dócil, ronrona ao toque. Parece ter sido abandonado ou fugido recentemente."
+    }
+];
 
-    return {
-        id: index + 1,
-        tipo: tipo,
-        nome: nome,
-        raca: raca,
-        sexo: sexo,
-        idade: `${Math.floor(Math.random() * 8) + 1} anos`,
-        cor: cor,
-        bairro: bairro,
-        endereco: `Rua Fictícia, próximo à ${bairro}.`,
-        ultimaVisto: ultimaVisto,
-        recompensa: recompensa,
-        contato: `(62) 98${Math.floor(Math.random() * 900) + 100}-XXXX`,
-        fotoUrl: (raca.includes('Gato')) ? `https://placekitten.com/600/400?image=${index + 1}` : `https://placedog.net/600/400?random&id=${index + 1}`,
-        detalhes: detalhes
-    };
-}
+// 3. PETS PARA ADOÇÃO
+const PETS_ADOCAO = [
+    {
+        id: 201, nome: "Estrela", raca: "SRD", idade: "6 meses", sexo: "Fêmea", porte: "Médio (Futuro)", cor: "Preto",
+        ong: "SOS Patinhas Goiânia", fotoUrl: "https://placedog.net/600/400?random&id=201",
+        descricao: "Estrela é uma filhotinha resgatada de maus tratos no Setor Criméia. Está vacinada e vermifugada. Muito brincalhona e adora crianças."
+    },
+    {
+        id: 202, nome: "Bala", raca: "Gato Siamês", idade: "2 anos", sexo: "Macho", porte: "Pequeno", cor: "Creme e Marrom",
+        ong: "Adoção Goiana", fotoUrl: "https://placekitten.com/600/400?image=2",
+        descricao: "Gato de temperamento calmo, ideal para apartamentos. Já está castrado e testado negativo para Fiv/Felv. Precisa de um lar tranquilo."
+    }
+];
 
-// 1. ANÚNCIOS PERDIDOS (15 exemplos para paginação)
-const ANUNCIOS_PERDIDOS = Array.from({ length: 15 }, (_, i) => generateFakePet(i, "perdido"));
-
-// 2. PETS ENCONTRADOS (9 exemplos para paginação)
-const PETS_ENCONTRADOS = Array.from({ length: 9 }, (_, i) => generateFakePet(i + 100, "encontrado"));
-
-// 3. PETS PARA ADOÇÃO (8 exemplos para paginação)
-const ONGS_GO = ["SOS Patinhas Goiânia", "Adoção Goiana", "Amigos da Praça", "Cão Cuidado (GO)"];
-const PETS_ADOCAO = Array.from({ length: 8 }, (_, i) => ({
-    id: i + 200,
-    nome: PETS_NAMES[i % PETS_NAMES.length],
-    raca: RAÇAS_COMUNS[i % RAÇAS_COMUNS.length],
-    idade: `${Math.floor(Math.random() * 3) + 6} meses`,
-    sexo: (i % 2 === 0) ? "Macho" : "Fêmea",
-    porte: ["Pequeno", "Médio", "Grande"][i % 3],
-    cor: ["Preto", "Branco", "Amarelo"][i % 3],
-    ong: ONGS_GO[i % ONGS_GO.length],
-    fotoUrl: (i % 3 === 0) ? `https://placekitten.com/600/400?image=${i + 200}` : `https://placedog.net/600/400?random&id=${i + 200}`,
-    descricao: "Este pet maravilhoso está à procura de um lar definitivo e cheio de amor em Goiânia. Já está castrado e vacinado. Por favor, adote consciente!"
-}));
-
-// 4. VAGAS DE VOLUNTARIADO (Mantido)
+// 4. VAGAS DE VOLUNTARIADO
 const VAGAS_VOLUNTARIADO = [
     {
         id: 301, ong: "Clínica Pet Amigo (Setor Marista)", funcao: "Auxiliar Veterinário (Estágio)",
@@ -65,22 +68,11 @@ const VAGAS_VOLUNTARIADO = [
         id: 302, ong: "ONG Abrace o Focinho", funcao: "Divulgador e Redes Sociais",
         requisitos: "Conhecimento em marketing digital, habilidade com criação de conteúdo (Goianês opcional). Trabalho remoto.",
         contato: "redes@abrace-focinho.org"
-    },
-    {
-        id: 303, ong: "Abrigo Esperança (Vila Redenção)", funcao: "Passeador de Cães Voluntário",
-        requisitos: "Força física, amar cães de grande porte, e ter disponibilidade nos fins de semana (manhã).",
-        contato: "passeio@abrigoesperanca.com"
     }
 ];
 
-// Junta todos os anúncios de busca
+// Junta todos os anúncios de busca (perdidos e encontrados) para o filtro
 const TODOS_ANUNCIOS = [...ANUNCIOS_PERDIDOS, ...PETS_ENCONTRADOS];
-
-// --- CONTROLE DE PAGINAÇÃO ---
-const DISPLAY_LIMIT = 3; // Quantidade de itens a carregar por vez
-let currentPerdidosIndex = 0;
-let currentEncontradosIndex = 0;
-let currentAdocaoIndex = 0;
 
 // --- REFERÊNCIAS DOM ---
 const gridPerdidos = document.getElementById('announcement-grid-perdidos');
@@ -90,12 +82,10 @@ const gridVoluntario = document.getElementById('volunteer-grid');
 const filterInput = document.getElementById('filter-input');
 const modal = document.getElementById('pet-details-modal');
 const modalContent = document.getElementById('modal-body-content');
-const btnLoadPerdidos = document.getElementById('btn-load-perdidos');
-const btnLoadEncontrados = document.getElementById('btn-load-encontrados');
-const btnLoadAdocao = document.getElementById('btn-load-adocao');
+const closeModalBtn = document.querySelector('.close-button');
 
 
-// --- FUNÇÕES DE RENDERIZAÇÃO E PAGINAÇÃO ---
+// --- FUNÇÕES GERAIS DE RENDERIZAÇÃO ---
 
 /**
  * Cria o HTML para o card de Anúncio (Perdido/Encontrado).
@@ -133,14 +123,12 @@ function generateAdoptionCardHTML(pet) {
     return `
         <div class="adoption-card">
             <img src="${pet.fotoUrl}" alt="Foto do ${pet.nome}" loading="lazy">
-            <div class="card-content">
-                <h3>${pet.nome} (${pet.sexo})</h3>
-                <p><strong><i class="fas fa-dog"></i> Raça:</strong> ${pet.raca}</p>
-                <p><strong><i class="fas fa-birthday-cake"></i> Idade:</strong> ${pet.idade}</p>
-                <p><strong><i class="fas fa-city"></i> ONG:</strong> ${pet.ong}</p>
-                <p class="description">${pet.descricao.substring(0, 80)}...</p>
-                <a href="#" class="btn-primary-cta" style="margin-top: 10px; padding: 8px 15px; font-size: 0.9em;"><i class="fas fa-external-link-alt"></i> Quero Adotar</a>
-            </div>
+            <h3>${pet.nome} (${pet.sexo})</h3>
+            <p><strong>Raça:</strong> ${pet.raca}</p>
+            <p><strong>Idade:</strong> ${pet.idade}</p>
+            <p><strong>ONG:</strong> ${pet.ong}</p>
+            <p class="description">${pet.descricao}</p>
+            <a href="#" class="btn-primary-cta" style="margin-top: 10px; padding: 8px 15px;"><i class="fas fa-external-link-alt"></i> Quero Adotar</a>
         </div>
     `;
 }
@@ -151,7 +139,7 @@ function generateAdoptionCardHTML(pet) {
 function generateVolunteerCardHTML(vaga) {
     return `
         <div class="volunteer-card">
-            <h3><i class="fas fa-briefcase"></i> ${vaga.funcao}</h3>
+            <h3>${vaga.funcao}</h3>
             <p><strong><i class="fas fa-city"></i> ONG/Local:</strong> ${vaga.ong}</p>
             <p><strong><i class="fas fa-clipboard-list"></i> Requisitos:</strong> ${vaga.requisitos}</p>
             <a href="mailto:${vaga.contato}" class="btn-filter" style="margin-top: 15px; padding: 8px 15px; background-color: #00bcd4;"><i class="fas fa-envelope"></i> Contato</a>
@@ -160,90 +148,26 @@ function generateVolunteerCardHTML(vaga) {
 }
 
 /**
- * Função principal para carregar mais anúncios com paginação.
- * @param {string} type - 'perdidos', 'encontrados', ou 'adocao'.
- * @param {boolean} isInitial - Indica se é a carga inicial (limpa o grid).
+ * Renderiza todas as seções (Perdidos, Encontrados, Adoção, Voluntariado).
  */
-function loadMoreAnnouncements(type, isInitial = false) {
-    let dataArray, currentIndex, gridElement, loadButton, generatorFn;
-
-    switch (type) {
-        case 'perdidos':
-            dataArray = ANUNCIOS_PERDIDOS;
-            currentIndex = currentPerdidosIndex;
-            gridElement = gridPerdidos;
-            loadButton = btnLoadPerdidos;
-            generatorFn = generateAnnouncementCardHTML;
-            break;
-        case 'encontrados':
-            dataArray = PETS_ENCONTRADOS;
-            currentIndex = currentEncontradosIndex;
-            gridElement = gridEncontrados;
-            loadButton = btnLoadEncontrados;
-            generatorFn = generateAnnouncementCardHTML;
-            break;
-        case 'adocao':
-            dataArray = PETS_ADOCAO;
-            currentIndex = currentAdocaoIndex;
-            gridElement = gridAdocao;
-            loadButton = btnLoadAdocao;
-            generatorFn = generateAdoptionCardHTML;
-            break;
-        default:
-            return;
-    }
-
-    if (isInitial) {
-        // Renderiza apenas os primeiros 3 ou até o limite
-        gridElement.innerHTML = '';
-        currentIndex = 0;
-    }
-
-    const nextBatch = dataArray.slice(currentIndex, currentIndex + DISPLAY_LIMIT);
-
-    nextBatch.forEach(pet => {
-        gridElement.innerHTML += generatorFn(pet);
-    });
-
-    // Atualiza o índice
-    const newIndex = currentIndex + nextBatch.length;
+function renderAllSections() {
+    // 1. Perdidos
+    gridPerdidos.innerHTML = ANUNCIOS_PERDIDOS.map(generateAnnouncementCardHTML).join('');
     
-    switch (type) {
-        case 'perdidos': currentPerdidosIndex = newIndex; break;
-        case 'encontrados': currentEncontradosIndex = newIndex; break;
-        case 'adocao': currentAdocaoIndex = newIndex; break;
-    }
+    // 2. Encontrados
+    gridEncontrados.innerHTML = PETS_ENCONTRADOS.map(generateAnnouncementCardHTML).join('');
 
-    // Esconde o botão se todos os itens foram carregados
-    if (newIndex >= dataArray.length) {
-        loadButton.style.display = 'none';
-    } else {
-        loadButton.style.display = 'block';
-        loadButton.innerHTML = `Carregar Mais ${Math.min(DISPLAY_LIMIT, dataArray.length - newIndex)} Alertas <i class="fas fa-chevron-down"></i>`;
-    }
-}
+    // 3. Adoção
+    gridAdocao.innerHTML = PETS_ADOCAO.map(generateAdoptionCardHTML).join('');
 
-/**
- * Renderiza todas as seções iniciais.
- */
-function renderAllSectionsInitial() {
-    // 1. Perdidos (Primeira carga)
-    loadMoreAnnouncements('perdidos', true);
-    
-    // 2. Encontrados (Primeira carga)
-    loadMoreAnnouncements('encontrados', true);
-
-    // 3. Adoção (Primeira carga)
-    loadMoreAnnouncements('adocao', true);
-
-    // 4. Voluntariado (Carga completa, sem paginação)
+    // 4. Voluntariado
     gridVoluntario.innerHTML = VAGAS_VOLUNTARIADO.map(generateVolunteerCardHTML).join('');
 
     // 5. Histórias de Sucesso
     renderTestimonials();
 }
 
-// --- FUNÇÃO DE FILTRO (AGORA COMPLETA) ---
+// --- FUNÇÃO DE FILTRO (APENAS PARA PERDIDOS/ENCONTRADOS) ---
 
 function filterAnnouncements() {
     const input = filterInput.value.toLowerCase().trim();
@@ -253,7 +177,6 @@ function filterAnnouncements() {
         return;
     }
     
-    // Filtra no array completo
     const filteredList = TODOS_ANUNCIOS.filter(pet => 
         pet.nome.toLowerCase().includes(input) || 
         pet.bairro.toLowerCase().includes(input) ||
@@ -262,87 +185,39 @@ function filterAnnouncements() {
         pet.detalhes.toLowerCase().includes(input)
     );
     
-    // Limpa e esconde botões de "Carregar Mais" durante o filtro
+    // Limpa e exibe os resultados na seção de Perdidos (por ser o foco principal)
     gridPerdidos.innerHTML = '';
     gridEncontrados.innerHTML = '';
-    btnLoadPerdidos.style.display = 'none';
-    btnLoadEncontrados.style.display = 'none';
 
     if (filteredList.length === 0) {
-        gridPerdidos.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; font-size: 1.5em; color: var(--color-alert); padding: 30px 0;">Nenhum anúncio correspondente foi encontrado para esta busca.</p>';
+        gridPerdidos.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; font-size: 1.5em; color: var(--color-alert); padding: 30px 0;">Nenhum anúncio correspondente foi encontrado em Goiânia.</p>';
     } else {
-        const perdidos = filteredList.filter(p => p.tipo === 'perdido');
-        const encontrados = filteredList.filter(p => p.tipo === 'encontrado');
+        filteredList.forEach(pet => {
+            if (pet.tipo === 'perdido') {
+                gridPerdidos.innerHTML += generateAnnouncementCardHTML(pet);
+            } else {
+                gridEncontrados.innerHTML += generateAnnouncementCardHTML(pet);
+            }
+        });
 
-        if (perdidos.length > 0) {
-             gridPerdidos.innerHTML = perdidos.map(generateAnnouncementCardHTML).join('');
-        } else {
-             gridPerdidos.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #777;">Nenhum Pet *Perdido* encontrado para o filtro.</p>';
+        if (gridPerdidos.innerHTML === '') {
+            gridPerdidos.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #777;">Nenhum Pet *Perdido* encontrado para o filtro.</p>';
         }
-
-        if (encontrados.length > 0) {
-             gridEncontrados.innerHTML = encontrados.map(generateAnnouncementCardHTML).join('');
-        } else {
-             gridEncontrados.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #777;">Nenhum Pet *Encontrado* encontrado para o filtro.</p>';
+         if (gridEncontrados.innerHTML === '') {
+            gridEncontrados.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #777;">Nenhum Pet *Encontrado* encontrado para o filtro.</p>';
         }
     }
 }
 
 function resetFilters() {
     filterInput.value = '';
-    // Reseta os índices e renderiza a seção inicial paginada novamente
-    currentPerdidosIndex = 0;
-    currentEncontradosIndex = 0;
-    currentAdocaoIndex = 0;
-    renderAllSectionsInitial();
+    // Volta a renderizar as listas iniciais
+    gridPerdidos.innerHTML = ANUNCIOS_PERDIDOS.map(generateAnnouncementCardHTML).join('');
+    gridEncontrados.innerHTML = PETS_ENCONTRADOS.map(generateAnnouncementCardHTML).join('');
 }
 
 
-// --- ANIMAÇÃO DE NÚMEROS (Melhoria CSS/JS) ---
-
-function animateValue(obj, start, end, duration) {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        let currentValue = Math.floor(progress * (end - start) + start);
-        
-        // Formata como porcentagem ou número
-        obj.innerHTML = (obj.getAttribute('data-target').includes('%')) 
-                        ? `${currentValue}%` 
-                        : `${currentValue}+`;
-
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
-        } else {
-             obj.innerHTML = obj.getAttribute('data-target'); // Garante o valor final exato
-        }
-    };
-    window.requestAnimationFrame(step);
-}
-
-
-// --- HISTÓRIAS DE SUCESSO E MODAL (Mantido e Refinado) ---
-
-function renderTestimonials() {
-    const testimonialData = [
-        // Adicionadas mais histórias para maior credibilidade
-        { avatar: "https://i.pravatar.cc/150?img=11", autor: "Dona Maria (Setor Oeste)", pet: "Mingau (Gato)", texto: "Nunca pensei que encontraria meu gato, Mingau, depois de 3 dias. A rede de voluntários foi essencial! Gratidão eterna!" },
-        { avatar: "https://i.pravatar.cc/150?img=12", autor: "João Silva (Jardim América)", pet: "Max (Basset)", texto: "O site me ajudou a identificar o dono do Basset Hound que encontrei na rua. Em 2 horas, ele estava em casa. Trabalho incrível!" },
-        { avatar: "https://i.pravatar.cc/150?img=13", autor: "Família Costa (Vila Redenção)", pet: "Belinha (Vira-Lata)", texto: "Graças ao alerta de recompensa, Belinha foi vista e resgatada na mesma noite. Vocês trouxeram a alegria de volta para nossa casa!" },
-        { avatar: "https://i.pravatar.cc/150?img=14", autor: "Voluntário Pedro", pet: "Cão idoso", texto: "Consegui resgatar um cão idoso desorientado perto do Mutirão. Usando o banco de dados, o dono foi localizado em 3 horas. Missão cumprida!" }
-    ];
-
-    const carousel = document.getElementById('testimonial-carousel');
-    carousel.innerHTML = testimonialData.map(test => `
-        <div class="testimonial-card">
-            <img src="${test.avatar}" alt="Foto do depoente" class="test-avatar" loading="lazy">
-            <p class="testimonial-text">"${test.texto}"</p>
-            <p class="testimonial-author">- ${test.autor}</p>
-            <p class="pet-status">Reencontrado: ${test.pet}</p>
-        </div>
-    `).join('');
-}
+// --- FUNÇÃO DO MODAL ---
 
 function openPetDetails(petId, petType) {
     const sourceArray = petType === 'perdido' ? ANUNCIOS_PERDIDOS : PETS_ENCONTRADOS;
@@ -381,9 +256,32 @@ function closePetDetails() {
     document.body.style.overflow = 'auto';
 }
 
+// --- HISTÓRIAS DE SUCESSO ---
+
+function renderTestimonials() {
+    const testimonialData = [
+        { avatar: "https://i.pravatar.cc/150?img=11", autor: "Dona Maria (Setor Oeste)", pet: "Mingau (Gato)", texto: "Nunca pensei que encontraria meu gato, Mingau, depois de 3 dias. A rede de voluntários foi essencial! Gratidão eterna!" },
+        { avatar: "https://i.pravatar.cc/150?img=12", autor: "João Silva (Jardim América)", pet: "Max (Basset)", texto: "O site me ajudou a identificar o dono do Basset Hound que encontrei na rua. Em 2 horas, ele estava em casa. Trabalho incrível!" },
+        { avatar: "https://i.pravatar.cc/150?img=13", autor: "Família Costa (Vila Redenção)", pet: "Belinha (Vira-Lata)", texto: "Graças ao alerta de recompensa, Belinha foi vista e resgatada na mesma noite. Vocês trouxeram a alegria de volta para nossa casa!" },
+        { avatar: "https://i.pravatar.cc/150?img=14", autor: "Voluntário Pedro", pet: "Cão idoso", texto: "Consegui resgatar um cão idoso desorientado perto do Mutirão. Usando o banco de dados, o dono foi localizado em 3 horas. Missão cumprida!" }
+    ];
+
+    const carousel = document.getElementById('testimonial-carousel');
+    carousel.innerHTML = testimonialData.map(test => `
+        <div class="testimonial-card">
+            <img src="${test.avatar}" alt="Foto do depoente" class="test-avatar">
+            <p class="testimonial-text">"${test.texto}"</p>
+            <p class="testimonial-author">- ${test.autor}</p>
+            <p class="pet-status">Reencontrado: ${test.pet}</p>
+        </div>
+    `).join('');
+}
+
+
 // --- INICIALIZAÇÃO E LISTENERS ---
 
-// Event Listeners para o Modal (Fechamento)
+// Event Listeners para o Modal
+closeModalBtn.onclick = closePetDetails;
 window.onclick = function(event) {
     if (event.target == modal) {
         closePetDetails();
@@ -392,18 +290,12 @@ window.onclick = function(event) {
 
 // Inicialização: Renderiza todo o conteúdo ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
-    renderAllSectionsInitial();
+    renderAllSections();
 
     // Adiciona evento de tecla Enter no input de filtro
     filterInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             filterAnnouncements();
         }
-    });
-
-    // Animação dos números de estatística
-    document.querySelectorAll('.stat-number').forEach(stat => {
-        const target = stat.getAttribute('data-target').replace(/[^0-9]/g, '');
-        animateValue(stat, 0, parseInt(target), 2000);
     });
 });
