@@ -6,21 +6,24 @@ const ANUNCIOS_PERDIDOS = [
         id: 1, tipo: "perdido", nome: "Bob", raca: "Labrador Retriever", sexo: "Macho", idade: "5 anos", cor: "Dourado",
         bairro: "Setor Bueno", endereco: "Próximo à Praça da T-25.",
         ultimaVisto: "Ontem, 19:30h", recompensa: "R$ 500,00",
-        contato: "(62) 98111-XXXX", fotoUrl: "https://placedog.net/600/400?random&id=1",
+        contato: "5562981110000", // Número de contato fictício do dono (usado no modal)
+        fotoUrl: "https://placedog.net/600/400?random&id=1",
         detalhes: "Muito dócil, atende por 'Bobão'. Tem coleira vermelha com plaquinha. Urgente!"
     },
     {
         id: 2, tipo: "perdido", nome: "Luna", raca: "Vira-Lata (SRD)", sexo: "Fêmea", idade: "2 anos", cor: "Caramelo",
         bairro: "Jardim América", endereco: "Rua C-156, perto do Supermercado.",
         ultimaVisto: "Hoje, 07:00h", recompensa: "Não",
-        contato: "(62) 98222-XXXX", fotoUrl: "https://placedog.net/600/400?random&id=2",
+        contato: "5562982220000",
+        fotoUrl: "https://placedog.net/600/400?random&id=2",
         detalhes: "Castrada, muito medrosa. Se abaixar e chamar pelo nome, ela se aproxima."
     },
     {
         id: 3, tipo: "perdido", nome: "Thor", raca: "Pastor Alemão", sexo: "Macho", idade: "8 meses", cor: "Preto e Marrom",
         bairro: "Parque Flamboyant", endereco: "Avenida Jamel Cecílio, fugiu durante passeio.",
         ultimaVisto: "Há 2 dias, 15:00h", recompensa: "R$ 1.000,00",
-        contato: "(62) 98333-XXXX", fotoUrl: "https://placedog.net/600/400?random&id=3",
+        contato: "5562983330000",
+        fotoUrl: "https://placedog.net/600/400?random&id=3",
         detalhes: "Filhote brincalhão. Pode estar assustado. Não tem microchip. "
     }
 ];
@@ -31,14 +34,16 @@ const PETS_ENCONTRADOS = [
         id: 101, tipo: "encontrado", nome: "Sem Nome", raca: "Cocker Spaniel", sexo: "Fêmea", idade: "Aprox. 3 anos", cor: "Preto",
         bairro: "Setor Oeste", endereco: "Encontrada na Praça Tamandaré, muito assustada.",
         ultimaVisto: "Hoje, 10:00h", recompensa: "Não",
-        contato: "(62) 99111-XXXX", fotoUrl: "https://placedog.net/600/400?random&id=101",
+        contato: "5562991110000", // Contato fictício do encontrador (usado no modal)
+        fotoUrl: "https://placedog.net/600/400?random&id=101",
         detalhes: "Tem coleira azul e está com sinais de desnutrição leve. Necessário comprovante de posse para resgate."
     },
     {
         id: 102, tipo: "encontrado", nome: "Sem Nome", raca: "Gato SRD", sexo: "Macho", idade: "Aprox. 1 ano", cor: "Branco e Laranja",
         bairro: "Vila Nova", endereco: "Achei perto do Hospital Geral de Goiânia (HGG).",
         ultimaVisto: "Ontem, 20:00h", recompensa: "Não",
-        contato: "(62) 99222-XXXX", fotoUrl: "https://placekitten.com/600/400?image=1",
+        contato: "5562992220000",
+        fotoUrl: "https://placekitten.com/600/400?image=1",
         detalhes: "Muito dócil, ronrona ao toque. Parece ter sido abandonado ou fugido recentemente."
     }
 ];
@@ -75,8 +80,8 @@ const VAGAS_VOLUNTARIADO = [
 const TODOS_ANUNCIOS = [...ANUNCIOS_PERDIDOS, ...PETS_ENCONTRADOS];
 
 // --- CONSTANTES E REFERÊNCIAS DOM ---
-const WHATSAPP_NUMBER = "5562993901617";
-const WHATSAPP_ID = "Keve/Alessandra/ariel/Kevin/joel";
+const WHATSAPP_NUMBER_CENTRAL = "5562993901617"; // O número central para contato com o administrador
+const WHATSAPP_ID = "kJAAK"; // O identificador solicitado
 
 const gridPerdidos = document.getElementById('announcement-grid-perdidos');
 const gridEncontrados = document.getElementById('announcement-grid-encontrados');
@@ -91,16 +96,19 @@ const closeModalBtn = document.querySelector('.close-button');
 // --- FUNÇÕES DE UTILIDADE ---
 
 /**
- * Gera o link de contato direto para o WhatsApp.
+ * Gera o link de contato direto para o WhatsApp (CENTRAL).
+ * Esta função usa o número e o identificador fixo 'kJAAK'.
  * @param {string} petNome - Nome do pet para a mensagem.
  * @param {string} petTipo - Tipo do anúncio ('perdido' ou 'encontrado').
  * @returns {string} O link completo do WhatsApp.
  */
 function renderWhatsAppCTA(petNome, petTipo) {
-    let message = `${WHATSAPP_ID} | Quero falar sobre o pet ${petNome} (${petTipo.toUpperCase()}) | Contato: `;
+    // Mensagem direcionada para o ADMINISTRADOR (número central)
+    let message = `${WHATSAPP_ID} | Pet: ${petNome} (${petTipo.toUpperCase()}) | Encontrei/vi este animal e quero AJUDAR.`;
+    
     // Codifica a mensagem para URL
     const encodedMessage = encodeURIComponent(message);
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+    return `https://wa.me/${WHATSAPP_NUMBER_CENTRAL}?text=${encodedMessage}`;
 }
 
 // --- FUNÇÕES GERAIS DE RENDERIZAÇÃO ---
@@ -114,21 +122,29 @@ function generateAnnouncementCardHTML(pet) {
     const badgeText = isPerdido ? 'PERDIDO' : 'ENCONTRADO';
     const recompensaBadge = pet.recompensa && pet.recompensa !== 'Não' ?
         `<span class="badge badge-recompensa"><i class="fas fa-hand-holding-usd"></i> ${pet.recompensa}</span>` : '';
+    
+    // Gera o link para contato com o admin (CENTRAL)
+    const whatsAppLinkCentral = renderWhatsAppCTA(pet.nome === 'Sem Nome' ? pet.raca : pet.nome, pet.tipo);
 
     return `
-        <article class="announcement-card" data-id="${pet.id}" data-type="${pet.tipo}" onclick="openPetDetails(${pet.id}, '${pet.tipo}')">
-            <img src="${pet.fotoUrl}" alt="Foto do ${pet.nome}, um(a) ${pet.raca}" class="pet-photo" loading="lazy">
+        <article class="announcement-card" data-id="${pet.id}" data-type="${pet.tipo}">
+            <img src="${pet.fotoUrl}" alt="Foto do ${pet.nome}, um(a) ${pet.raca}" class="pet-photo" loading="lazy" onclick="openPetDetails(${pet.id}, '${pet.tipo}')">
             <div class="card-content">
-                <h3>${pet.nome} <span class="badge ${badgeClass}">${badgeText}</span></h3>
-                <div class="card-info">
-                    <p><strong><i class="fas fa-venus-mars"></i> Sexo:</strong> ${pet.sexo}</p>
-                    <p><strong><i class="fas fa-map-marker-alt"></i> Bairro:</strong> ${pet.bairro}</p>
-                    <p><strong><i class="far fa-clock"></i> Última Vez:</strong> ${pet.ultimaVisto}</p>
+                <div>
+                    <h3>${pet.nome} <span class="badge ${badgeClass}">${badgeText}</span></h3>
+                    <div class="card-info">
+                        <p><strong><i class="fas fa-venus-mars"></i> Sexo:</strong> ${pet.sexo}</p>
+                        <p><strong><i class="fas fa-map-marker-alt"></i> Bairro:</strong> ${pet.bairro}</p>
+                        <p><strong><i class="far fa-clock"></i> Última Vez:</strong> ${pet.ultimaVisto}</p>
+                    </div>
+                    <div class="card-badges">
+                        ${recompensaBadge}
+                        <span class="badge" style="background-color: #f1f1f1; color: var(--color-text);"><i class="fas fa-dog"></i> ${pet.raca}</span>
+                    </div>
                 </div>
-                <div class="card-badges">
-                    ${recompensaBadge}
-                    <span class="badge" style="background-color: #f1f1f1; color: var(--color-text);"><i class="fas fa-dog"></i> ${pet.raca}</span>
-                </div>
+                <a href="${whatsAppLinkCentral}" target="_blank" class="btn-card-whatsapp">
+                    <i class="fab fa-whatsapp"></i> Falar sobre este Pet (WhatsApp)
+                </a>
             </div>
         </article>
     `;
@@ -138,8 +154,8 @@ function generateAnnouncementCardHTML(pet) {
  * Cria o HTML para o card de Adoção.
  */
 function generateAdoptionCardHTML(pet) {
-    // CTA Adoção via WhatsApp, pedindo informações do pet
-    const whatsappLink = renderWhatsAppCTA(pet.nome, 'adoção');
+    // CTA Adoção via WhatsApp, para o número central
+    const whatsappLink = `https://wa.me/${WHATSAPP_NUMBER_CENTRAL}?text=kJAAK%20%7C%20Quero%20saber%20mais%20sobre%20o%20pet%20${pet.nome}%20para%20ADOÇÃO.`;
     
     return `
         <div class="adoption-card">
@@ -238,8 +254,12 @@ function openPetDetails(petId, petType) {
 
     const badgeStyle = petType === 'perdido' ? 'color: var(--color-primary);' : 'color: var(--color-secondary);';
     
-    // Gera o link de contato com WhatsApp, chamando o contato do próprio anunciante do pet
-    const whatsAppLink = `https://wa.me/${pet.contato.replace(/[^\d]/g, '')}?text=Olá,%20vi%20o%20anúncio%20do(a)%20${pet.nome}%20(${petType})%20no%20AnimaisPerdidosGoiania%20e%20tenho%20informações!`;
+    // Link de contato com o ENCONTRADOR/DONO (contato listado no anúncio, não o central)
+    // Mensagem genérica para o contato listado no anúncio
+    const whatsAppLinkDono = `https://wa.me/${pet.contato.replace(/[^\d]/g, '')}?text=Olá,%20vi%20o%20anúncio%20do(a)%20${pet.nome}%20(${petType})%20no%20AnimaisPerdidosGoiania%20e%20tenho%20informações!`;
+
+    // Link de contato com o ADMINISTRADOR (número central) - usado no segundo botão
+    const whatsAppLinkCentral = renderWhatsAppCTA(pet.nome === 'Sem Nome' ? pet.raca : pet.nome, pet.tipo);
 
     modalContent.innerHTML = `
         <img src="${pet.fotoUrl}" alt="Foto de ${pet.nome}" class="modal-img">
@@ -258,8 +278,11 @@ function openPetDetails(petId, petType) {
             <div style="grid-column: 1 / -1;"><strong><i class="far fa-clock"></i> Data/Hora:</strong> ${pet.ultimaVisto}</div>
         </div>
         
-        <a href="${whatsAppLink}" target="_blank" class="btn-contact-modal"> <i class="fab fa-whatsapp"></i> Falar com o Dono/Encontrador (${pet.contato})</a>
-        <a href="tel:${pet.contato}" class="btn-contact-modal" style="background-color: var(--color-primary); margin-top: 10px;"> <i class="fas fa-phone"></i> Ligar Urgente</a>
+        <a href="${whatsAppLinkDono}" target="_blank" class="btn-contact-modal"> <i class="fab fa-whatsapp"></i> Falar com o Dono/Encontrador (${pet.contato.substring(0, 10)}...)</a>
+        
+        <a href="${whatsAppLinkCentral}" target="_blank" class="btn-contact-modal" style="background-color: var(--color-primary); margin-top: 10px;"> <i class="fas fa-headset"></i> Notificar a Administração (kJAAK)</a>
+
+        <a href="tel:${pet.contato}" class="btn-contact-modal" style="background-color: var(--color-dark); margin-top: 10px;"> <i class="fas fa-phone"></i> Ligar Urgente</a>
     `;
 
     modal.style.display = "block";
