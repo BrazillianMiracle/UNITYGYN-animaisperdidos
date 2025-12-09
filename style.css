@@ -1,527 +1,628 @@
-/* style.css - Versão Profissional e Coerente */
-
-/* --- VARIÁVEIS DE COR E TIPOGRAFIA --- */
+/*
+ * ----------------------------------------
+ * 1. VARIÁVEIS E RESET BÁSICO
+ * ----------------------------------------
+ */
 :root {
-    --color-primary: #1a237e;      /* Azul Escuro (Força e Confiança) */
-    --color-secondary: #ffc107;    /* Amarelo/Ouro (Destaque e Recompensa) */
-    --color-alert: #dc3545;        /* Vermelho (Alerta PERDIDO) */
-    --color-found: #28a745;        /* Verde (Pet ENCONTRADO) */
-    --color-background: #f4f7f6;   /* Fundo Suave */
-    --color-text: #333333;
+    /* Paleta de Cores */
+    --color-primary: #FF5733; /* Vermelho/Laranja de Alerta e Energia */
+    --color-secondary: #00A86B; /* Verde de Esperança e Reencontro */
+    --color-dark: #2c3e50; /* Azul Escuro para Texto Principal */
+    --color-text: #4a4a4a; /* Cinza Escuro para Corpo de Texto */
+    --color-light-gray: #f4f4f4; /* Fundo de Seções Alternadas */
+    --color-white: #ffffff;
+
+    /* Tipografia */
     --font-heading: 'Poppins', sans-serif;
-    --font-body: 'Roboto', Arial, sans-serif;
+    --font-body: 'Roboto', sans-serif;
 }
 
-/* --- ESTILOS GLOBAIS E RESET --- */
-* {
+*, *::before, *::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--color-background);
-    color: var(--color-text);
-    line-height: 1.6;
     font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--color-text);
+    background-color: var(--color-white);
+    -webkit-font-smoothing: antialiased;
 }
 
+/* * ----------------------------------------
+ * 2. LAYOUT BASE
+ * ----------------------------------------
+ */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 15px;
 }
 
-a {
-    color: var(--color-primary);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-a:hover {
-    color: var(--color-secondary);
-}
-
-/* --- TIPOGRAFIA --- */
-h1, h2, h3 {
-    font-family: var(--font-heading);
-    color: var(--color-primary);
-    margin-bottom: 20px;
-}
-
 .section-title {
-    font-size: 2.2em;
-    font-weight: 700;
+    font-family: var(--font-heading);
+    font-size: 2.5em;
+    font-weight: 800;
+    color: var(--color-dark);
     text-align: center;
-    padding: 20px 0;
-    margin-bottom: 30px;
-    border-bottom: 2px solid #ddd;
+    margin-bottom: 40px;
+    position: relative;
 }
 
-.title-alert { border-color: var(--color-alert); }
-.title-found { border-color: var(--color-found); }
-.title-adoption { border-color: var(--color-primary); }
-.title-success { border-color: var(--color-secondary); }
-.title-volunteer { border-color: #00bcd4; }
-.title-white { color: white; border-color: rgba(255, 255, 255, 0.4); }
-
-/* --- BOTÕES GLOBAIS (CTAs) --- */
-.btn-primary-cta, .btn-filter, .btn-reset, .btn-load-more, .btn-cta-large {
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: 600;
-    text-align: center;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.3s, transform 0.1s;
-}
-
-.btn-primary-cta {
-    background-color: var(--color-secondary);
+.section-title i {
     color: var(--color-primary);
+    margin-right: 10px;
+}
+
+.section-subtitle {
+    text-align: center;
+    margin-bottom: 50px;
     font-size: 1.1em;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.btn-primary-cta:hover {
-    background-color: #ffda47;
-    transform: translateY(-2px);
-}
-
-.btn-filter { background-color: var(--color-primary); color: white; }
-.btn-reset { background-color: #9e9e9e; color: white; }
-.btn-load-more {
-    display: block;
-    margin: 30px auto;
-    background-color: #e0e0e0;
     color: var(--color-text);
-    padding: 10px 30px;
-    width: 90%;
-    max-width: 300px;
 }
 
-/* --- BANNER DESENVOLVEDOR --- */
-.top-dev-banner {
+section {
+    padding: 80px 0;
+}
+
+.bg-light-gray {
+    background-color: var(--color-light-gray);
+}
+
+.bg-alert-red {
     background-color: var(--color-primary);
-    color: white;
-    text-align: center;
-    padding: 5px 0;
-    font-size: 0.85em;
-    font-family: var(--font-body);
+    color: var(--color-white);
 }
-.top-dev-banner strong { color: var(--color-secondary); }
 
-/* --- HEADER E HERO --- */
+.bg-alert-red .section-title,
+.bg-alert-red .section-title i {
+    color: var(--color-white);
+}
+
+/* * ----------------------------------------
+ * 3. CABEÇALHO E NAVEGAÇÃO
+ * ----------------------------------------
+ */
+.top-dev-banner {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    text-align: center;
+    padding: 8px 0;
+    font-size: 0.9em;
+}
+
 .main-header {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 0;
+    position: relative;
 }
 
+/* Banner Hero */
 .banner-hero {
-    background: linear-gradient(rgba(26, 35, 126, 0.75), rgba(26, 35, 126, 0.75)), url('https://picsum.photos/1200/500?image=1074'); /* Imagem fictícia de fundo */
-    background-size: cover;
-    background-position: center;
-    color: white;
-    padding: 60px 0;
+    background: url('https://picsum.photos/1920/600/?blur=2&pet=dog-cat') no-repeat center center/cover;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.banner-hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.55); /* Overlay Escuro */
+    z-index: 2;
+}
+
+.banner-content {
+    color: var(--color-white);
     text-align: center;
+    position: relative;
+    z-index: 3;
 }
 
 .banner-content h1 {
-    font-size: 3em;
+    font-family: var(--font-heading);
+    font-size: 4em;
     font-weight: 800;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     margin-bottom: 10px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 .highlight-text {
-    color: var(--color-secondary);
+    color: var(--color-primary);
 }
 
 .banner-content p {
-    font-size: 1.2em;
+    font-size: 1.5em;
     margin-bottom: 30px;
-    font-family: var(--font-body);
+    font-weight: 500;
 }
 
-/* --- NAVEGAÇÃO --- */
+/* Botão CTA Principal */
+.btn-primary-cta {
+    display: inline-block;
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    padding: 15px 30px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 1.1em;
+}
+
+.btn-primary-cta:hover {
+    background-color: #008f58;
+    transform: translateY(-2px);
+}
+
+/* Navegação Principal */
 .main-nav {
-    background-color: white;
-    border-bottom: 1px solid #ddd;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    background-color: var(--color-dark);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 .nav-list {
     list-style: none;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 15px 0;
+    flex-wrap: wrap; /* Para responsividade */
+}
+
+.nav-list li {
+    margin: 0 15px;
 }
 
 .nav-link {
-    color: var(--color-primary);
-    padding: 5px 10px;
-    font-weight: 600;
-    transition: all 0.3s;
+    color: var(--color-white);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-weight: 500;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+    border-bottom: 2px solid transparent;
 }
 
 .nav-link:hover {
-    color: var(--color-secondary);
-    border-bottom: 3px solid var(--color-secondary);
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
 }
 
-/* --- SEÇÃO DE BUSCA E ESTATÍSTICAS --- */
+.nav-link i {
+    margin-right: 5px;
+}
+
+/* * ----------------------------------------
+ * 4. SEÇÃO DE BUSCA (SEARCH)
+ * ----------------------------------------
+ */
 .search-section {
-    padding: 30px 0;
-    background-color: white;
-    border-bottom: 1px solid #eee;
+    padding: 40px 0;
+    background-color: var(--color-light-gray);
+    border-bottom: 3px solid var(--color-primary);
+}
+
+.search-section h2 {
+    font-family: var(--font-heading);
+    font-size: 1.8em;
+    text-align: center;
+    color: var(--color-dark);
+    margin-bottom: 25px;
 }
 
 .search-bar-advanced {
     display: flex;
     gap: 10px;
     max-width: 800px;
-    margin: 20px auto 0;
+    margin: 0 auto;
+    padding: 0 10px;
 }
 
-.search-bar-advanced input {
+#filter-input {
     flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px 15px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
     font-size: 1em;
+    transition: border-color 0.3s;
 }
 
-/* Estatísticas */
+#filter-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+.btn-filter, .btn-reset {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    white-space: nowrap; /* Impede que o texto quebre */
+}
+
+.btn-filter {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.btn-filter:hover {
+    background-color: #d84827;
+}
+
+.btn-reset {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+}
+
+.btn-reset:hover {
+    background-color: #1e2b38;
+}
+
+/* * ----------------------------------------
+ * 5. ESTATÍSTICAS (STATS)
+ * ----------------------------------------
+ */
 .stats-section {
-    padding: 40px 0;
-    background-color: #e8eaf6; /* Um azul muito claro */
+    padding: 60px 0;
+}
+
+.stats-section .section-title {
+    margin-bottom: 50px;
 }
 
 .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 30px;
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
     text-align: center;
 }
 
 .stat-item {
-    background: white;
+    flex: 1;
+    min-width: 200px;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    background: var(--color-white);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
 }
 
 .stat-icon {
-    font-size: 2.5em;
-    color: var(--color-primary);
+    font-size: 3em;
+    color: var(--color-secondary);
     margin-bottom: 10px;
 }
 
 .stat-number {
+    font-family: var(--font-heading);
     font-size: 2.5em;
-    font-weight: 800;
-    color: var(--color-alert);
-}
-
-.stat-label {
-    font-weight: 500;
-    margin-top: 5px;
-}
-
-/* --- GRID DE ANÚNCIOS GERAL --- */
-.section-announcements, .section-adoption, .section-voluntario, .section-testimonials {
-    padding: 60px 0;
-}
-.bg-light-gray { background-color: #f0f4f7; }
-
-.announcement-grid, .adoption-grid, .volunteer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 20px;
-}
-
-/* Card Padrão de Anúncio (Perdido/Encontrado) */
-.announcement-card {
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-}
-
-.announcement-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
-}
-
-.pet-photo {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-.card-content {
-    padding: 15px;
-}
-
-.card-content h3 {
-    font-size: 1.4em;
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: var(--color-text);
-}
-
-.card-info p {
-    font-size: 0.9em;
+    font-weight: 700;
+    color: var(--color-primary);
     margin-bottom: 5px;
 }
 
-.card-badges {
-    margin-top: 10px;
+.stat-label {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--color-dark);
 }
 
-.badge {
-    padding: 5px 10px;
-    border-radius: 3px;
-    font-size: 0.75em;
-    font-weight: 700;
-    display: inline-block;
-    margin-right: 5px;
+/* * ----------------------------------------
+ * 6. ANÚNCIOS (PERDIDOS/ENCONTRADOS/ADOÇÃO)
+ * ----------------------------------------
+ */
+.section-announcements {
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
-.badge-perdido { background-color: var(--color-alert); color: white; }
-.badge-encontrado { background-color: var(--color-found); color: white; }
-.badge-recompensa { background-color: var(--color-secondary); color: var(--color-primary); }
+.title-alert i { color: var(--color-primary); }
+.title-found i { color: var(--color-secondary); }
+.title-adoption i { color: #8E44AD; } /* Roxo para Adoção */
+.title-volunteer i { color: #F39C12; } /* Amarelo para Voluntariado */
+.title-success i { color: #E74C3C; } /* Vermelho Suave */
+.title-white { color: var(--color-white) !important; }
+.title-white i { color: var(--color-white) !important; }
 
-/* --- SEÇÃO APROVEITADA (ADOÇÃO/VOLUNTARIADO) --- */
-/* Estilo para cards de Adoção e Voluntariado */
-.adoption-card, .volunteer-card {
-    background-color: white;
-    border: 1px solid #ddd;
+
+.announcement-grid, .adoption-grid, .volunteer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.loading-placeholder {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px 0;
+    font-size: 1.2em;
+    color: var(--color-text);
+}
+
+.btn-load-more {
+    display: block;
+    margin: 20px auto 0;
+    padding: 12px 25px;
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn-load-more:hover {
+    background-color: var(--color-primary);
+}
+
+/* Estilo para Itens de Grid (Seria aplicado via JS) */
+.announcement-item, .adoption-card, .volunteer-card {
+    background: var(--color-white);
     border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-.adoption-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    border-top: 5px solid var(--color-primary); /* Exemplo de destaque */
 }
 
-/* --- HISTÓRIAS DE SUCESSO --- */
+.section-announcements #announcement-grid-encontrados .announcement-item {
+    border-top-color: var(--color-secondary);
+}
+
+.announcement-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* * ----------------------------------------
+ * 7. TESTEMUNHOS (HISTÓRIAS DE SUCESSO)
+ * ----------------------------------------
+ */
 .testimonial-carousel {
     display: flex;
+    overflow-x: auto;
     gap: 30px;
-    overflow-x: auto; /* Permite rolar se houver muitos */
-    padding-bottom: 20px;
-    justify-content: center;
+    padding: 20px;
+    /* Estilos de rolagem (opcional para navegadores compatíveis) */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) var(--color-light-gray);
 }
 
-.testimonial-card {
-    min-width: 300px;
-    max-width: 350px;
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    flex: 0 0 auto;
-}
-.test-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 3px solid var(--color-secondary);
-}
-.testimonial-text {
-    font-style: italic;
-    margin-bottom: 10px;
-}
-.pet-status {
-    font-weight: 700;
-    color: var(--color-primary);
+/* * ----------------------------------------
+ * 8. VOLUNTARIADO
+ * ----------------------------------------
+ */
+.section-voluntario {
+    background-color: var(--color-white);
 }
 
-/* --- SEÇÃO DE DOAÇÃO --- */
-.section-donation {
-    background-color: var(--color-primary); /* Azul escuro principal */
-    color: white;
-    padding: 60px 0;
-}
+/* * ----------------------------------------
+ * 9. DOAÇÕES
+ * ----------------------------------------
+ */
 .donation-content-flex {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 50px;
+    gap: 40px;
+    align-items: center;
+    flex-wrap: wrap;
 }
+
 .donation-info {
     flex: 1;
+    min-width: 300px;
 }
-.emphasis-text {
+
+.donation-info p {
     font-size: 1.1em;
-    font-weight: 600;
-    margin-top: 15px;
-    color: var(--color-secondary);
+    margin-bottom: 15px;
 }
+
+.emphasis-text {
+    font-weight: 700;
+    font-style: italic;
+    color: #ffd700; /* Destaque na cor para o texto */
+}
+
 .donation-box {
-    background-color: white;
-    color: var(--color-text);
-    padding: 25px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    color: var(--color-dark);
     min-width: 350px;
 }
+
 .donation-box h3 {
     margin-top: 0;
-    color: var(--color-primary);
-    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--color-primary);
     padding-bottom: 10px;
+    font-family: var(--font-heading);
 }
+
 .donation-option {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
+
 .donation-option i {
-    font-size: 2em;
-    color: var(--color-found);
+    font-size: 2.5em;
+    color: var(--color-secondary);
 }
+
 .pix-key {
     font-weight: 700;
-    color: var(--color-alert);
+    color: var(--color-primary);
 }
 
+.donation-option p {
+    margin: 0;
+    line-height: 1.4;
+}
 
-/* --- MODAL --- */
+/* * ----------------------------------------
+ * 10. MODAL
+ * ----------------------------------------
+ */
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1000;
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 100;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.7); 
+    background-color: rgba(0, 0, 0, 0.7);
+    padding-top: 60px;
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 10% auto;
+    margin: 5% auto;
     padding: 30px;
     border-radius: 10px;
+    border: 1px solid #888;
+    width: 90%;
     max-width: 700px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     position: relative;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .close-button {
-    color: #aaa;
+    color: var(--color-dark);
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    line-height: 1;
     position: absolute;
     top: 10px;
     right: 20px;
-    font-size: 28px;
-    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--color-primary);
+    text-decoration: none;
     cursor: pointer;
 }
 
-.modal-img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
-
-.modal-info-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 15px;
-    padding: 10px;
-    border-bottom: 1px dotted #ccc;
-}
-.btn-contact-modal {
-    display: block;
-    background-color: var(--color-alert);
-    color: white;
-    padding: 12px;
-    margin-top: 20px;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: 700;
-}
-
-/* --- RODAPÉ --- */
+/* * ----------------------------------------
+ * 11. RODAPÉ
+ * ----------------------------------------
+ */
 .main-footer {
-    background-color: var(--color-primary);
-    color: white;
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    padding: 40px 0;
     text-align: center;
-    padding: 5px 0;
-    font-size: 0.9em;
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
 }
+
 .footer-bottom {
-    padding: 15px 0;
-    background-color: #111855; /* Cor um pouco mais escura para contraste */
-}
-.main-footer strong {
-    color: var(--color-secondary);
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9em;
 }
 
-
-/* --- RESPONSIVIDADE --- */
+/* * ----------------------------------------
+ * 12. RESPONSIVIDADE (MEDIA QUERIES)
+ * ----------------------------------------
+ */
 @media (max-width: 992px) {
     .nav-list {
-        display: block;
-        text-align: center;
-        padding: 10px;
+        padding: 10px 0;
     }
     .nav-list li {
-        display: inline-block;
         margin: 5px 10px;
     }
-    .donation-content-flex {
-        flex-direction: column;
-        align-items: center;
-    }
-    .donation-box {
-        min-width: unset;
-        width: 100%;
-    }
-}
-@media (max-width: 768px) {
-    .banner-content h1 {
-        font-size: 2.2em;
+    .nav-link {
+        font-size: 0.9em;
     }
     .stats-grid {
-        grid-template-columns: 1fr 1fr;
+        justify-content: center;
     }
+}
+
+@media (max-width: 768px) {
+    .banner-content h1 {
+        font-size: 3em;
+    }
+    .banner-content p {
+        font-size: 1.2em;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    .nav-list li {
+        margin: 5px 0;
+    }
+
+    .section-title {
+        font-size: 2em;
+    }
+
     .search-bar-advanced {
         flex-direction: column;
     }
-    .search-bar-advanced button {
+    .btn-filter, .btn-reset {
         width: 100%;
     }
+    
+    .donation-content-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .donation-option {
+        justify-content: center;
+    }
+
+    .donation-box {
+        min-width: auto;
+    }
 }
+
 @media (max-width: 480px) {
-    .stats-grid {
-        grid-template-columns: 1fr;
+    .banner-hero {
+        height: 350px;
     }
-    .announcement-grid, .adoption-grid, .volunteer-grid {
-        grid-template-columns: 1fr;
+    .banner-content h1 {
+        font-size: 2.5em;
     }
-    .nav-list li {
-        display: block;
-        margin: 8px 0;
+    .btn-primary-cta {
+        padding: 12px 20px;
+        font-size: 1em;
     }
 }
