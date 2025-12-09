@@ -74,7 +74,10 @@ const VAGAS_VOLUNTARIADO = [
 // Junta todos os anúncios de busca (perdidos e encontrados) para o filtro
 const TODOS_ANUNCIOS = [...ANUNCIOS_PERDIDOS, ...PETS_ENCONTRADOS];
 
-// --- REFERÊNCIAS DOM ---
+// --- CONSTANTES E REFERÊNCIAS DOM ---
+const WHATSAPP_NUMBER = "5562993901617";
+const WHATSAPP_ID = "Keve/Alessandra/ariel/Kevin/joel";
+
 const gridPerdidos = document.getElementById('announcement-grid-perdidos');
 const gridEncontrados = document.getElementById('announcement-grid-encontrados');
 const gridAdocao = document.getElementById('adoption-grid');
@@ -84,6 +87,21 @@ const modal = document.getElementById('pet-details-modal');
 const modalContent = document.getElementById('modal-body-content');
 const closeModalBtn = document.querySelector('.close-button');
 
+
+// --- FUNÇÕES DE UTILIDADE ---
+
+/**
+ * Gera o link de contato direto para o WhatsApp.
+ * @param {string} petNome - Nome do pet para a mensagem.
+ * @param {string} petTipo - Tipo do anúncio ('perdido' ou 'encontrado').
+ * @returns {string} O link completo do WhatsApp.
+ */
+function renderWhatsAppCTA(petNome, petTipo) {
+    let message = `${WHATSAPP_ID} | Quero falar sobre o pet ${petNome} (${petTipo.toUpperCase()}) | Contato: `;
+    // Codifica a mensagem para URL
+    const encodedMessage = encodeURIComponent(message);
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+}
 
 // --- FUNÇÕES GERAIS DE RENDERIZAÇÃO ---
 
@@ -120,6 +138,9 @@ function generateAnnouncementCardHTML(pet) {
  * Cria o HTML para o card de Adoção.
  */
 function generateAdoptionCardHTML(pet) {
+    // CTA Adoção via WhatsApp, pedindo informações do pet
+    const whatsappLink = renderWhatsAppCTA(pet.nome, 'adoção');
+    
     return `
         <div class="adoption-card">
             <img src="${pet.fotoUrl}" alt="Foto do ${pet.nome}" loading="lazy">
@@ -128,7 +149,7 @@ function generateAdoptionCardHTML(pet) {
             <p><strong>Idade:</strong> ${pet.idade}</p>
             <p><strong>ONG:</strong> ${pet.ong}</p>
             <p class="description">${pet.descricao}</p>
-            <a href="#" class="btn-primary-cta" style="margin-top: 10px; padding: 8px 15px;"><i class="fas fa-external-link-alt"></i> Quero Adotar</a>
+            <a href="${whatsappLink}" target="_blank" class="btn-primary-cta" style="margin-top: 15px; background-color: #9B59B6; padding: 10px 20px;"><i class="fab fa-whatsapp"></i> Quero Adotar</a>
         </div>
     `;
 }
@@ -142,7 +163,7 @@ function generateVolunteerCardHTML(vaga) {
             <h3>${vaga.funcao}</h3>
             <p><strong><i class="fas fa-city"></i> ONG/Local:</strong> ${vaga.ong}</p>
             <p><strong><i class="fas fa-clipboard-list"></i> Requisitos:</strong> ${vaga.requisitos}</p>
-            <a href="mailto:${vaga.contato}" class="btn-filter" style="margin-top: 15px; padding: 8px 15px; background-color: #00bcd4;"><i class="fas fa-envelope"></i> Contato</a>
+            <a href="mailto:${vaga.contato}" class="btn-filter" style="margin-top: 15px; padding: 10px 20px; background-color: #F39C12;"><i class="fas fa-envelope"></i> Contato por Email</a>
         </div>
     `;
 }
@@ -151,19 +172,10 @@ function generateVolunteerCardHTML(vaga) {
  * Renderiza todas as seções (Perdidos, Encontrados, Adoção, Voluntariado).
  */
 function renderAllSections() {
-    // 1. Perdidos
     gridPerdidos.innerHTML = ANUNCIOS_PERDIDOS.map(generateAnnouncementCardHTML).join('');
-    
-    // 2. Encontrados
     gridEncontrados.innerHTML = PETS_ENCONTRADOS.map(generateAnnouncementCardHTML).join('');
-
-    // 3. Adoção
     gridAdocao.innerHTML = PETS_ADOCAO.map(generateAdoptionCardHTML).join('');
-
-    // 4. Voluntariado
     gridVoluntario.innerHTML = VAGAS_VOLUNTARIADO.map(generateVolunteerCardHTML).join('');
-
-    // 5. Histórias de Sucesso
     renderTestimonials();
 }
 
@@ -190,20 +202,21 @@ function filterAnnouncements() {
     gridEncontrados.innerHTML = '';
 
     if (filteredList.length === 0) {
-        gridPerdidos.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; font-size: 1.5em; color: var(--color-alert); padding: 30px 0;">Nenhum anúncio correspondente foi encontrado em Goiânia.</p>';
+        gridPerdidos.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; font-size: 1.5em; color: var(--color-primary); padding: 50px 0;">Nenhum anúncio correspondente foi encontrado em Goiânia.</p>';
+        gridEncontrados.innerHTML = ''; // Garante que a seção Encontrados também fique limpa no resultado
     } else {
-        filteredList.forEach(pet => {
-            if (pet.tipo === 'perdido') {
-                gridPerdidos.innerHTML += generateAnnouncementCardHTML(pet);
-            } else {
-                gridEncontrados.innerHTML += generateAnnouncementCardHTML(pet);
-            }
-        });
+        const perdidosFiltrados = filteredList.filter(pet => pet.tipo === 'perdido');
+        const encontradosFiltrados = filteredList.filter(pet => pet.tipo === 'encontrado');
 
-        if (gridPerdidos.innerHTML === '') {
+        if (perdidosFiltrados.length > 0) {
+             gridPerdidos.innerHTML = perdidosFiltrados.map(generateAnnouncementCardHTML).join('');
+        } else {
             gridPerdidos.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #777;">Nenhum Pet *Perdido* encontrado para o filtro.</p>';
         }
-         if (gridEncontrados.innerHTML === '') {
+
+        if (encontradosFiltrados.length > 0) {
+            gridEncontrados.innerHTML = encontradosFiltrados.map(generateAnnouncementCardHTML).join('');
+        } else {
             gridEncontrados.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: #777;">Nenhum Pet *Encontrado* encontrado para o filtro.</p>';
         }
     }
@@ -212,8 +225,7 @@ function filterAnnouncements() {
 function resetFilters() {
     filterInput.value = '';
     // Volta a renderizar as listas iniciais
-    gridPerdidos.innerHTML = ANUNCIOS_PERDIDOS.map(generateAnnouncementCardHTML).join('');
-    gridEncontrados.innerHTML = PETS_ENCONTRADOS.map(generateAnnouncementCardHTML).join('');
+    renderAllSections();
 }
 
 
@@ -224,8 +236,10 @@ function openPetDetails(petId, petType) {
     const pet = sourceArray.find(p => p.id === petId);
     if (!pet) return;
 
-    const badgeStyle = petType === 'perdido' ? 'color: var(--color-alert);' : 'color: var(--color-found);';
-    const contatoButtonClass = petType === 'perdido' ? 'btn-contact-modal' : 'btn-primary-cta';
+    const badgeStyle = petType === 'perdido' ? 'color: var(--color-primary);' : 'color: var(--color-secondary);';
+    
+    // Gera o link de contato com WhatsApp, chamando o contato do próprio anunciante do pet
+    const whatsAppLink = `https://wa.me/${pet.contato.replace(/[^\d]/g, '')}?text=Olá,%20vi%20o%20anúncio%20do(a)%20${pet.nome}%20(${petType})%20no%20AnimaisPerdidosGoiania%20e%20tenho%20informações!`;
 
     modalContent.innerHTML = `
         <img src="${pet.fotoUrl}" alt="Foto de ${pet.nome}" class="modal-img">
@@ -244,7 +258,8 @@ function openPetDetails(petId, petType) {
             <div style="grid-column: 1 / -1;"><strong><i class="far fa-clock"></i> Data/Hora:</strong> ${pet.ultimaVisto}</div>
         </div>
         
-        <a href="tel:${pet.contato}" class="${contatoButtonClass}"> <i class="fas fa-phone"></i> Contato Urgente: ${pet.contato}</a>
+        <a href="${whatsAppLink}" target="_blank" class="btn-contact-modal"> <i class="fab fa-whatsapp"></i> Falar com o Dono/Encontrador (${pet.contato})</a>
+        <a href="tel:${pet.contato}" class="btn-contact-modal" style="background-color: var(--color-primary); margin-top: 10px;"> <i class="fas fa-phone"></i> Ligar Urgente</a>
     `;
 
     modal.style.display = "block";
